@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h2>회원가입</h2>
+        <form action="member/join" method="post" onsubmit="return valid()">
+            <div class="form-group">
+                <label for="email">EMAIL</label>
+                <input type="text" class="form-control" id="email" placeholder="abcd@godvoyage.com" required>
+                <button onclick="emailcheck()" type="button" class="btn btn-primary">이메일 중복체크</button>
+            </div>
+            <div class="form-group">
+                <label for="password">PASSWORD</label>
+                <input type="password" class="form-control" id="password" required>
+                <small id="passwordHelp" class="form-text text-muted">대문자, 숫자 포함하여 8자 이상 입력하세요.</small>
+            </div>
+            <div class="form-group">
+                <label for="password2">PASSWORD CONFIRM </label>
+                <input type="password" class="form-control" id="password2" required>
+                <small id="passwordHelp2" class="form-text text-muted">입력한 비밀번호와 동일하게 입력하세요</small>
+            </div>
+            <div class="form-group">
+                <label for="name">NAME</label>
+                <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요" required>
+            </div>
+            <div class="form-group">
+                <label for="address">ADDRESS</label>
+                <input type="text" class="form-control" id="address" placeholder="서울시 강남구 청담동" required>
+            </div>
+            <div class="form-group">
+                <label for="telNum">TELEPHONE</label>
+                <input type="text" class="form-control" id="telNum" placeholder="01012345678" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                <label class="form-check-label" for="exampleCheck1">개인정보제공에 동의합니다.</label>
+            </div>
+            <button type="submit" class="btn btn-primary">가입하기!</button>
+        </form>
+
+    </th:block>
+</th:block>
+</html>
