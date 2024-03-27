@@ -16,7 +16,7 @@ public interface MemberService {
                 .email(dto.getEmail())
                 .telNum(dto.getTelNum())
                 .address(dto.getAddress())
-                .role(MemberRole.USER)
+                .role(MemberRole.ADMIN)
                 .build();
 
         return member;
