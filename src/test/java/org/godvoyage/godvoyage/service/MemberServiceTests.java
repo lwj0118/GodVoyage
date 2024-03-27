@@ -17,7 +17,9 @@ public class MemberServiceTests {
                 .email("admin@godvoyage.com")
                 .password("1234")
                 .name("관리자계정")
-                .address("서울시 강남구")
+                .zipcode("123456")
+                .straddress("서울시 강남구")
+                .detaddress("젤비싼땅")
                 .telNum("01012345678")
                 .build();
         Member member = memberService.saveMember(dto);

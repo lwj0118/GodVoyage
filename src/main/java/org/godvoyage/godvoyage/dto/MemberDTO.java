@@ -1,5 +1,7 @@
 package org.godvoyage.godvoyage.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,11 +12,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberDTO {
-
     private String email;
     private String password;
     private String name;
-    private String address;
+    private String zipcode;
+    private String straddress;
+    private String detaddress;
     private String telNum;
 
 }

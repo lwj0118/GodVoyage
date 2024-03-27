@@ -52,6 +52,4 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .roles(member.getRole().toString())
                 .build();
     }
-
-
 }
