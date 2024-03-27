@@ -15,11 +15,11 @@ public interface MemberService {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .telNum(dto.getTelNum())
-                .address(dto.getAddress())
+                .zipcode(dto.getZipcode())
+                .straddress(dto.getStraddress())
+                .detaddress(dto.getDetaddress())
                 .role(MemberRole.ADMIN)
                 .build();
-
         return member;
     }
-
 }

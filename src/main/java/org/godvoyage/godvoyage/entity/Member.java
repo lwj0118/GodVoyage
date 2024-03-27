@@ -19,11 +19,15 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "member_seq")
     private Long id;
+    @Column(unique = true)
     private String email;
     private String password;
     private String name;
-    private String address;
+    private String zipcode;         //우편번호
+    private String straddress;		// 지번 주소
+    private String detaddress;		// 상세 주소
     private String telNum;
+
     @Enumerated(EnumType.STRING)
     private MemberRole role;
 
