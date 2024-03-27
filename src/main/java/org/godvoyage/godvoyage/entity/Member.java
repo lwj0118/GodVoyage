@@ -17,7 +17,7 @@ import javax.management.relation.Role;
 @SequenceGenerator(name="member_seq", sequenceName = "member_seq", allocationSize = 1)
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "member_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
     private Long id;
     @Column(unique = true)
     private String email;
