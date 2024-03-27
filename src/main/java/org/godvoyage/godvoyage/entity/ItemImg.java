@@ -14,7 +14,7 @@ import lombok.*;
 @SequenceGenerator(name="itemimg_seq", sequenceName = "itemimg_seq", allocationSize = 1)
 public class ItemImg {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "itemimg_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itemimg_seq")
     @Column(name = "item_img_id")
     private Long id;
     private String imgName;         //이미지이름. 경로로 통해 받은 파일명으로 저장

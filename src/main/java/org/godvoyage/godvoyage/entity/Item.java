@@ -16,7 +16,7 @@ import org.godvoyage.godvoyage.constant.ItemSellStatus;
 public class Item {
     @Id
     @Column(name="item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "item_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_seq")
     private Long id;                //지역 id
 
     @Column(nullable = false, length = 400)

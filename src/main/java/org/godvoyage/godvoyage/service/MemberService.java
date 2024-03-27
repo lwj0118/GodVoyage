@@ -18,7 +18,7 @@ public interface MemberService {
                 .zipcode(dto.getZipcode())
                 .straddress(dto.getStraddress())
                 .detaddress(dto.getDetaddress())
-                .role(MemberRole.ADMIN)
+                .role(MemberRole.USER)
                 .build();
         return member;
     }
