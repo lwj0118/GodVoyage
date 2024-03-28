@@ -18,12 +18,18 @@ public interface ItemService {
     //아이템 조회(페이징조회)
     PageResultDTO<ItemDTO, Item> getList(PageRequestDTO requestDTO);
 
-    //아이템 하나만 상세조회
+    //일반 사용자가 아이템 하나만 상세조회
     ItemDTO getItem(Long itemid);
 
-    
+    //아이템 수정하기
+    Long updateItem(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception;
+
+
     //메인에서 상품조회
-   //PageResultDTO<MainItemDTO, Object[]> getMainList(PageRequestDTO requestDTO);
+   PageResultDTO<MainItemDTO, Object[]> getMainList(PageRequestDTO requestDTO);
+
+    //상품리스트 일괄 조회
+    PageResultDTO<MainItemDTO, Object[]> getShopList(PageRequestDTO requestDTO);
     
    default Item dtoToEntity(ItemDTO dto){
         Item item = Item.builder()

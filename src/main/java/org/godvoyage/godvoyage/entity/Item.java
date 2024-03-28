@@ -3,6 +3,7 @@ package org.godvoyage.godvoyage.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.godvoyage.godvoyage.constant.ItemSellStatus;
+import org.godvoyage.godvoyage.dto.ItemDTO;
 
 @Entity
 @Table(name="item")
@@ -34,5 +35,14 @@ public class Item {
 
     @Enumerated(EnumType.STRING)         //ENUM타입을 문자로 리턴
     private ItemSellStatus itemSellStatus; 	//상품판매상태==> SELL, SOLD_OUT
+
+    //상품수정하기
+    public void updateItem(ItemDTO dto){
+        this.itemNm = dto.getItemNm();
+        this.itemDetail = dto.getItemDetail();
+        this.price = dto.getPrice();
+        this.stockNumber = dto.getStockNumber();
+        this.itemSellStatus = dto.getItemSellStatus();
+    }
 
 }

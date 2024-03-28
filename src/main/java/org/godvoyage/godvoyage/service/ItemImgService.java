@@ -15,6 +15,7 @@ public interface ItemImgService {
 
     //itemid에 해당하는 itemImg조회
     List<ItemImg> findByItemid(Long itemId);
+
     //수정하기
     void updateItemImg(Long itemImgId, MultipartFile multipartFile) throws Exception;
 

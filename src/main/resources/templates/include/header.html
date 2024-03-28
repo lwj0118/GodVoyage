@@ -6,22 +6,6 @@
     <header class="header-v4">
         <!-- Header desktop -->
         <div class="container-menu-desktop">
-            <!-- Topbar -->
-            <div class="top-bar">
-                <div class="content-topbar flex-sb-m h-full container">
-                    <!--<div class="left-top-bar">
-                        Free shipping for standard order over $100
-                    </div>-->
-
-                    <div class="right-top-bar flex-w h-full">
-
-                        <a href="/logininfo" class="flex-c-m trans-04 p-lr-25">
-                            My Account
-                        </a>
-
-                    </div>
-                </div>
-            </div>
 
             <div class="wrap-menu-desktop how-shadow1">
                 <nav class="limiter-menu-desktop container">
@@ -35,23 +19,35 @@
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li>
-                                <a href="/list">여행지리스트</a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html">도쿄</a></li>
-                                    <li><a href="home-02.html">뉴욕</a></li>
-                                    <li><a href="home-03.html">파리</a></li>
-                                </ul>
-                            </li>
+                                <a href="/item/list">여행지리스트</a>
 
-                            <li>
-                                <a href="product.html">Shop</a>
                             </li>
+                            <th:block sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/item/new">여행상품등록</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/admin/itemlist">여행상품관리</a>
+                                </li>
+                            </th:block>
 
-                            <li class="label1" data-label1="hot">
-                                <a href="shoping-cart.html">Features</a>
-                            </li>
+                            <th:block sec:authorize="isAnonymous()">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/member/login">로그인</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/member/join">회원가입</a>
+                                </li>
+                            </th:block>
+
+                            <th:block sec:authorize="isAuthenticated()">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">로그아웃</a>
+                                </li>
+                            </th:block>
 
                         </ul>
+
                     </div>
 
                     <!-- Icon header -->
@@ -60,11 +56,23 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
+                       <!-- <th:block th:if="${dto.MemberRole==T(org.godvoyage.godvoyage.constant.MemberRole).USER}">
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
+                                <i class="zmdi zmdi-shopping-cart">
+                                    <a th:href="/cart" th:value="${dto.cartItemId}"></a>
+                                </i>
+                            </div>
+                        </th:block>
 
-                        <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+                        <th:block th:unless="${dto.MemberRole==T(org.godvoyage.godvoyage.constant.MemberRole).USER}">
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
+                                <i class="zmdi zmdi-shopping-cart">
+                                    <a th:href="/member/login" ></a>
+                                </i>
+                            </div>
+                        </th:block>-->
+
+                        <a href="/wishlist" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
                             <i class="zmdi zmdi-favorite-outline"></i>
                         </a>
                     </div>
@@ -103,42 +111,6 @@
         </div>
 
 
-        <!-- Menu Mobile -->
-        <div class="menu-mobile">
-
-            <ul class="main-menu-m">
-                <li>
-                    <a href="/list">여행지역</a>
-                    <ul class="sub-menu-m">
-                        <li><a href="/list/tokyo">도쿄</a></li>
-                        <li><a href="/list/newyork">뉴욕</a></li>
-                        <li><a href="/list/paris">파리</a></li>
-                    </ul>
-                    <span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
-                </li>
-
-                <li>
-                    <a href="/login">로그인</a>
-                </li>
-
-                <li>
-                    <a href="/admin" class="label1 rs1" data-label1="hot">관리자계정</a>
-                </li>
-                <li>
-                    <div class="right-top-bar flex-w h-full">
-
-                        <a href="/myinfo" class="flex-c-m p-lr-10 trans-04">
-                            내 계정
-                        </a>
-
-                    </div>
-                </li>
-
-            </ul>
-        </div>
-
         <!-- Modal Search -->
         <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
             <div class="container-search-header">
@@ -146,11 +118,12 @@
                     <img src="/images/icons/icon-close2.png" alt="CLOSE">
                 </button>
 
-                <form class="wrap-search-header flex-w p-l-15">
-                    <button class="flex-c-m trans-04">
+                <form class="wrap-search-header flex-w p-l-15" action="/item/list">
+                    <button class="flex-c-m trans-04" type="submit">
                         <i class="zmdi zmdi-search"></i>
                     </button>
-                    <input class="plh3" type="text" name="search" placeholder="Search...">
+                    <input class="form-control mr-sm-2" name="size" type="hidden" value="9">
+                    <input class="plh3" type="text" name="keyword" placeholder="여행지를 입력하세요">
                 </form>
             </div>
         </div>
