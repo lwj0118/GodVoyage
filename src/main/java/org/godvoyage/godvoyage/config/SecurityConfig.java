@@ -36,7 +36,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth)->auth
                 .requestMatchers("/","/member/**","/item/**","/images/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/js/**","/css/**","/img/**").permitAll()
+                .requestMatchers("/js/**","/css/**","/img/**","/images/**","/fonts/**","/vendor/**").permitAll()
                 .anyRequest().authenticated()
         );
         //위변조방지 csrf토큰 체크 사용 안함 설정
