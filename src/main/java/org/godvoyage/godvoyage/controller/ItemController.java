@@ -2,6 +2,7 @@ package org.godvoyage.godvoyage.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.godvoyage.godvoyage.dto.ItemDTO;
+import org.godvoyage.godvoyage.dto.MainItemDTO;
 import org.godvoyage.godvoyage.dto.PageRequestDTO;
 import org.godvoyage.godvoyage.dto.PageResultDTO;
 import org.godvoyage.godvoyage.entity.Item;
@@ -54,12 +55,39 @@ public class ItemController {
         return  "/item/itemlist";
     }
 
-    //상품 하나 조회
+    //관리자 계정에서 상품 하나 조회
     @GetMapping("/admin/item/{itemId}")
     public String itemDetail(@PathVariable("itemId") Long itemId, Model model) {
         ItemDTO itemDTO = itemService.getItem(itemId);
         model.addAttribute("itemDTO", itemDTO);
         System.out.println(itemDTO.toString());
         return "item/itemdetail";
+    }
+
+    //상품수정
+    @PostMapping("/admin/item/{itemId}")
+    public String itemUpdate( @PathVariable("itemId") Long itemId,ItemDTO itemDTO
+            , @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList) throws Exception {
+        System.out.println(itemDTO.toString());
+
+        Long id =  itemService.updateItem(itemDTO, itemImgFileList);
+
+        return "redirect:/admin/itemlist";
+    }
+
+    //전체 여행 상품리스트 9개씩 조회
+    @GetMapping("/item/list")
+    public String itemList(PageRequestDTO pageRequestDTO, Model model) {
+        PageResultDTO<MainItemDTO, Object[]> result= itemService.getShopList(pageRequestDTO);
+        model.addAttribute("result", result);
+        return "item/list";
+    }
+
+    //일반 사용자가 여행지 내용 상세 조회
+    @GetMapping("/item/{itemId}")
+    public String itemDetailView(@PathVariable("itemId") Long itemId, Model model) {
+        ItemDTO itemDTO = itemService.getItem(itemId);
+        model.addAttribute("itemDTO", itemDTO);
+        return "item/detailView";
     }
 }

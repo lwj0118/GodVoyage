@@ -58,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
         return new PageResultDTO<>(result, fn);
     }
 
-    //아이템 하나 상세 조회
+    //일반 사용자가 여행상품 하나 상세 조회
     @Override
     public ItemDTO getItem(Long itemid) {
         //아이템조회하기
@@ -76,15 +76,56 @@ public class ItemServiceImpl implements ItemService {
         return dto;
     }
 
-   /* @Override
+    @Override
+    public Long updateItem(ItemDTO itemDTO, List<MultipartFile> itemImgFileList) throws Exception {
+        //아이템 조회. get()으로 받음
+        Item item= itemRepository.findById(itemDTO.getId()).get();
+        //item필드값 변경
+        item.updateItem(itemDTO);
+        //업데이트 하여 저장하기
+        itemRepository.save(item);
+        //itemimg 수정. itemDTO의 itemImgIDS와 맵핑
+        List<Long> itemImgIds = itemDTO.getItemImgIds();
+        for (int i = 0; i < itemImgFileList.size(); i++) {
+            if(itemImgIds.get(i)==null) {
+                System.out.println("이미지가 없습니다");
+                //ItemImg필드를 넣기 위한 엔티티 생성
+                ItemImg itemImg = new ItemImg();
+                itemImg.setItem(item);
+                if(i==0){
+                    itemImg.setRepimgYn("Y");
+                }else{
+                    itemImg.setRepimgYn("N");
+                }
+                itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
+            }else {
+                //itemImgFileList.get(i)는 파일 전달.
+                itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+            }
+        }
+        return item.getId();
+    }
+
+    //여행상품 9개 단위로 조회
+    @Override
+    public PageResultDTO<MainItemDTO, Object[]> getShopList(PageRequestDTO requestDTO) {
+        Page<Object[]> result = itemRepository.getList(requestDTO.getPageable(Sort.by("id").descending())
+                , requestDTO.getKeyword());
+        Function<Object[], MainItemDTO> fn = (arr->{
+            return entityObjToDTO((Item) arr[0], (ItemImg) arr[1]);
+        });
+        return new PageResultDTO<>(result,fn);
+    }
+
+   @Override
     public PageResultDTO<MainItemDTO, Object[]> getMainList(PageRequestDTO requestDTO) {
-        Page<Object[]> result= ItemRepository.getListPage(requestDTO.getPageable(Sort.by("id").descending()));
+        Page<Object[]> result= itemRepository.getListPage(requestDTO.getPageable(Sort.by("id").descending()));
         Function<Object[], MainItemDTO> fn = (arr->{
             return entityObjToDTO((Item) arr[0], (ItemImg) arr[1]);
         });
 
         return new PageResultDTO<>(result,fn);
-    }*/
+    }
 }
 
 

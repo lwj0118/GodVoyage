@@ -45,6 +45,7 @@ public class ItemImgServiceImpl implements  ItemImgService {
         return itemImgList;
     }
 
+    //이미지 수정하기
     @Override
     public void updateItemImg(Long itemImgId, MultipartFile multipartFile) throws Exception {
         Optional<ItemImg> result = itemImgRepository.findById(itemImgId);
