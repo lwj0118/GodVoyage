@@ -16,6 +16,7 @@ import javax.management.relation.Role;
 @Setter
 @SequenceGenerator(name="member_seq", sequenceName = "member_seq", allocationSize = 1)
 public class Member {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
     private Long id;
