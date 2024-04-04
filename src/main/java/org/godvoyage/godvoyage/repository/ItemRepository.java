@@ -40,4 +40,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             "on m.item= i where m.repimgYn= 'Y' and i.itemNm like %:keyword%")
     Page<Object[]> getList(Pageable pageable, @Param("keyword") String keyword);
 
+    //상품리스트 키워드 검색조회
+    @Query("select i,m from Item i left outer join ItemImg m " +
+            "on m.item = i where m.repimgYn = 'Y' and i.itemNm like %:keyword%")
+    Page<Object[]> getList(Pageable pageable, @Param("keyword") String keyword);
+
 }

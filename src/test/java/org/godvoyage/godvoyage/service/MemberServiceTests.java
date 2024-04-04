@@ -13,8 +13,9 @@ public class MemberServiceTests {
 
     @Test
     public void saveMemberTest(){
+        System.out.println(memberService);
         MemberDTO dto = MemberDTO.builder()
-                .email("admin@godvoyage.com")
+                .email("aaa@godvoyage.com")
                 .password("1234")
                 .name("관리자계정")
                 .zipcode("123456")
