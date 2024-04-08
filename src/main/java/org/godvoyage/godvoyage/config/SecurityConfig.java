@@ -36,8 +36,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth)->auth
                 .requestMatchers("/","/member/**","/item/**","/images/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/js/**","/css/**","/img/**","/image/**","/fonts/**","/vendor/**").permitAll()
+                .requestMatchers("/js/**","/css/**","/img/**","/image/**","/fonts/**","/vendor/**","/mail/**").permitAll()
                 .anyRequest().authenticated()
+
         );
         //위변조방지 csrf토큰 체크 사용 안함 설정
         http.csrf(cs->cs.disable());
