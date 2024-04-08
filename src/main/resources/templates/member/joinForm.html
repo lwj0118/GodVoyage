@@ -2,14 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <h2>회원가입11</h2>
-        <form action="/member/join" method="post" onsubmit="return validateForm()">
+        <h2>회원가입</h2>
+        <form action="/member/join" method="post" onsubmit="return validateForm()" th:object="${memberDto}">
             <div class="form-group">
                 <label for="email">EMAIL</label>
                 <input type="text" class="form-control" id="email" name="email"
                        onkeyup="validateEmail();" placeholder="abcd@godvoyage.com" required>
                 <span id="e_result" style="font-size: 14px; color: red;">올바른 이메일 주소를 입력해주세요.</span>
                 <button onclick="emailcheck()" type="button" class="btn btn-primary">이메일 중복체크</button>
+                <button class="btn btn-primary" type="button" id="sendBtn" name="sendBtn">인증번호</button>
+            </div>
+            <div class="form-group" id="mail_number" name="mail_number" style="display: none">
+                <input type="hidden" id="confirm" name="confirm" value="" >
+                <input class="form-control" type="text" name="number" id="number" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                <button class="btn btn-primary" type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
             </div>
             <div class="form-group">
                 <label for="password">PASSWORD</label>
@@ -52,6 +58,7 @@
             </div>
             <button type="submit" class="btn btn-primary">가입하기</button>
         </form>
+
 
     </th:block>
 </th:block>
@@ -207,6 +214,39 @@ function validatePassword() {
                 document.getElementById("detaddress").focus();
             }
         }).open();
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $("#sendBtn").click(function(){
+        $("#mail_number").css("display","block");
+        let email = $("#email").val();
+        $.ajax({
+            url:"/mail",
+            type:"post",
+            dataType:"json",
+            data:{"email" : email},
+            success: function(data){
+                alert("인증번호 발송");
+                $("#confirm").attr("value",data);
+                console.log(data);
+            },
+            error:function(request, status, error){
+		    alert("code:"+request.status+"\n"+"error:"+error);
+	        }
+	        })
+        });
+
+    function confirmNumber(){
+        var number1 = $("#number").val();
+        var number2 = $("#confirm").val();
+
+        if(number1 == number2){
+            alert("인증되었습니다.");
+        }else{
+            alert("번호가 다릅니다.");
+        }
     }
 </script>
 </html>
