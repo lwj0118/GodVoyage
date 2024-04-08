@@ -3,7 +3,7 @@
 <th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
     <th:block th:fragment="content">
         <div>
-    <br></br>
+    <br/>
     <h1 class="title">나의 정보</h1>
     <form action="/member/edit" method="post">
 
@@ -42,13 +42,10 @@
         </div>
         <br/>
         <button type="submit" onclick="editMember()" class="btn btn-primary">수정하기</button>
-
+        <input type="hidden" id="memberid" th:value="${member.id}" />
+        <button type="button" onclick="deleteMember()" class="btn btn-primary">탈퇴하기</button>
     </div>
     </form>
-            <input type="hidden" id="memberid" th:value="${member.id}" />
-            <button type="button" onclick="deleteMember()" class="btn btn-primary">탈퇴하기</button>
-    </h1>
-</div>
 </div>
     </th:block>
 </th:block>
