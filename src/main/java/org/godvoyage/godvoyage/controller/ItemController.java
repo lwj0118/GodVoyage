@@ -88,6 +88,6 @@ public class ItemController {
     public String itemDetailView(@PathVariable("itemId") Long itemId, Model model) {
         ItemDTO itemDTO = itemService.getItem(itemId);
         model.addAttribute("itemDTO", itemDTO);
-        return "item/detailView";
+        return "item/detail2";
     }
 }

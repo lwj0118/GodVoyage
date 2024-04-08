@@ -10,6 +10,7 @@ public interface MemberService {
     //회원가입
     Member saveMember(MemberDTO dto);
     String validateMember(MemberDTO dto);
+
     default Member dtoToEntity(MemberDTO dto){
         Member member = Member.builder()
                 .name(dto.getName())
@@ -22,4 +23,10 @@ public interface MemberService {
                 .build();
         return member;
     }
+
+    //회원정보 수정?
+    Member updateMember(MemberDTO dto);
+
+    //회원 탈퇴하기
+    public void deleteMember(Long id);
 }
