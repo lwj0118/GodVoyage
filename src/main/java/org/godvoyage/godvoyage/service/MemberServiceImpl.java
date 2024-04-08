@@ -41,6 +41,24 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
+    public Member updateMember(MemberDTO dto) {
+        Member memberUpdate = memberRepository.findByEmail(dto.getEmail());
+        memberUpdate.setPassword(passwordEncoder.encode(dto.getPassword()));
+        memberUpdate.setName(dto.getName());
+        memberUpdate.setZipcode(dto.getZipcode());
+        memberUpdate.setStraddress(dto.getStraddress());
+        memberUpdate.setDetaddress(dto.getDetaddress());
+        memberUpdate.setTelNum(dto.getTelNum());
+
+        return memberRepository.save(memberUpdate);
+    }
+
+    @Override
+    public void deleteMember(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(username);
         if(member == null){
