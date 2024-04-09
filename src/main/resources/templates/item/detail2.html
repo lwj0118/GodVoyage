@@ -3,7 +3,7 @@
 <th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
 	<th:block th:fragment="content">
 		<h1>여행 상품 상세 페이지</h1>
-
+		<input type="hidden" id="itemId" th:value="${itemDTO.id}"/>
 	<!-- breadcrumb -->
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -45,7 +45,7 @@
 					
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
-						<h4 class="mtext-105 cl2 js-name-detail p-b-14" id="itemId" th:value="${itemDTO.id}"> </h4>
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14" id="itemNm" th:value="${itemDTO.itemNm}">[[${itemDTO.itemNm}]] </h4>
 
 						<span class="mtext-106 cl2">
 							<input type="hidden" th:value="${itemDTO.price}" id="price" name="price" />
@@ -83,16 +83,26 @@
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+										<input class="mtext-104 cl3 txt-center num-product" type="number" name="count" id="count" value="1">
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
 
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-										카트 담기
-									</button>
+									<br/>
+									<span>
+										<button type="button" onclick="cart()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+												id="cbtn4">
+											카트 담기
+										</button>
+									</span>
+									<span>
+										<button type="button" onclick="order()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+												id="cbtn5">
+											결제하기
+										</button>
+									</span>
 								</div>
 							</div>	
 						</div>
@@ -131,4 +141,61 @@
 
 	</th:block>
 </th:block>
+<script>
+	$(document).ready(function(){
+         calculateTotalPrice();
+         $("#count").change(function(){
+             calculateTotalPrice();
+         })
+    })
+    function calculateTotalPrice(){
+        let count=  $("#count").val();
+        let price = $("#price").val();
+        $("#totalPrice").html((count*price)+'원');
+    }
+    function login(){
+        alert("로그인 해주세요.");
+        location.href = "/member/login";
+    }
+    function order(){
+       let paramData = {
+            itemId: $("#itemId").val(),
+            count: $("#count").val()
+       }
+       $.ajax({
+            url: "/order",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(paramData),
+            dataType: "json",
+            success: function(result) {
+                alert("결제가 완료되었습니다.");
+            },
+            error: function(error){
+                alert(error.responseText);
+            }
+       })
+    }
+     function cart(){
+       let paramData = {
+            itemId: $("#itemId").val(),
+            count: $("#count").val()
+       }
+       console.log(itemId);
+       $.ajax({
+            url: "/cart",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(paramData),
+            dataType: "json",
+            success: function(result) {
+
+            },
+            error: function(error){
+                alert(error.responseText);
+            }
+       })
+
+    }
+</script>
 </html>

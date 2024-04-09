@@ -78,7 +78,8 @@ public class CartServiceImpl implements CartService{
         if(cart==null){
             return cartDetailDTOList;
         }
-
+        //조회된 cartDetailDTO 리스트 할당
+        cartDetailDTOList = cartItemRepository.findCartDetailDTOList(cart.getId());
         return cartDetailDTOList;
     }
 

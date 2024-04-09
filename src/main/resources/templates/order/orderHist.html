@@ -7,13 +7,23 @@
             <div class="d-flex mb-3 align-slef-center">
                 <h4 th:text="${dto.orderDate}"></h4>
                 <div class="ml-3">
-                    <th:block th:if="${dto.orderStatus==T(org.green.shop.constant.OrderStatus).ORDER}">
-                        <button th:value="${dto.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                    <th:block th:if="${dto.orderStatus==T(org.godvoyage.godvoyage.constant.OrderStatus).ORDER}">
+                     <span>
+                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="cbtn1"
+                                th:value="${dto.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                     </span>
                     </th:block>
-                    <th:block th:unless="${dto.orderStatus==T(org.green.shop.constant.OrderStatus).ORDER}">
-                        <button>(취소완료)</button>
+
+                    <th:block th:unless="${dto.orderStatus==T(org.godvoyage.godvoyage.constant.OrderStatus).ORDER}">
+                    <span>
+                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+                                id="cbtn2">(취소완료)</button>
+                    </span>
                     </th:block>
-                    <button th:value="${dto.orderId}" onclick="removeOrder(this.value)">구매이력삭제</button>
+                    <span>
+                        <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" id="cbtn3"
+                                th:value="${dto.orderId}" onclick="removeOrder(this.value)">구매이력삭제</button>
+                    </span>
 
                 </div>
             </div>

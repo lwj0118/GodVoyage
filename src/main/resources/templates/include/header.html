@@ -12,14 +12,14 @@
 
                     <!-- Logo desktop -->
                     <a href="/" class="logo">
-                        <img src="/image/icons/logo-01.png" alt="IMG-LOGO">
+                        <img src="/image/godvoyage_logo.jpg" alt="IMG-LOGO">
                     </a>
 
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
                         <ul class="main-menu">
                             <li>
-                                <a href="/item/list">여행지리스트</a>
+                                <a th:href="@{/item/list(size=9)}">여행지리스트</a>
 
                             </li>
                             <th:block sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
@@ -28,6 +28,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/admin/itemlist">여행상품관리</a>
+
                                 </li>
                             </th:block>
 
@@ -45,7 +46,10 @@
                                     <a class="nav-link" href="/member/logininfo">마이페이지</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/cart" >장바구니</a>
+                                    <a class="nav-link" href="/cart">장바구니</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/orders">주문목록</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/logout">로그아웃</a>
@@ -61,24 +65,6 @@
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
-
-                      <!-- <th:block sec:authorize="isAuthenticated()">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
-                                <i class="zmdi zmdi-shopping-cart">
-                                    <a th:href="/cart" th:value="${dto.cartItemId}"></a>
-                                </i>
-                            </div>
-                        </th:block>
-
-                        <th:block sec:authorize="isAnonymous()">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
-                                <i class="zmdi zmdi-shopping-cart">
-                                    <a th:href="/member/login" ></a>
-                                </i>
-                            </div>
-                        </th:block>-->
-
-
                     </div>
                 </nav>
             </div>
