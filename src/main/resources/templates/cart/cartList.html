@@ -1,53 +1,145 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
-    <th:block th:fragment="content">
-        <h1>장바구니 목록</h1>
-        <div>
-            <table class="table">
-                <tr class="text-center">
-                    <td><input type="checkbox" id="checkall" onclick="checkAll()" />전체선택</td>
-                    <td>상품정보</td>
-                    <td>상품금액</td>
-                </tr>
-                <tr th:each="cartItem:${result}">
-                    <td>
-                        <input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}"/>
-                    </td>
-                    <td class="d-flex">
-                        <div class="repImgDiv">
-                            <img th:src="${cartItem.imgUrl}" width="200" class="rounded repImg" />
-                        </div>
-                        <div>
-                            <h3 th:text="${cartItem.itemNm}"></h3>
-                            <div>
-                                <span th:id="'price'+${cartItem.cartItemId}"
-                                      th:data-price="${cartItem.price}"
-                                      th:text="${cartItem.price}+'원'"></span>
-                                <input type="number" onchange="changeCount(this)" name="count" th:value="${cartItem.count}"
-                                       min="1" th:id="'count_'+${cartItem.cartItemId}"/>
-                                <button type="button" onclick="deleteCartItem(this)"
-                                        th:data-cartItemid="${cartItem.cartItemId}" class="close">X</button>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <span th:id="'totalPrice_'+${cartItem.cartItemId}"
-                              name="totalPrice" th:text="${cartItem.price*cartItem.count}+'원'"></span>
-                    </td>
-                </tr>
-            </table>
-            <div class="text-center">
-                총 주문 금액 : <span id="orderTotalPrice" class="text-danger">0원</span>
-            </div>
-            <div class="text-center">
-                <button type="button" onclick="order()" class="btn btn-primary btn-lg">주문하기</button>
-            </div>
-        </div>
-    </th:block>
+	<th:block th:fragment="content">
+	<title>Shoping Cart</title>
+
+	<!-- breadcrumb -->
+	<div class="container">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+		
+
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1"><input type="checkbox" id="checkall" onclick="checkAll()" />Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Quantity</th>
+									<th class="column-5">Total</th>
+								</tr>
+
+								<tr class="table_row" th:each="cartItem:${result}">
+									<td class="column-1">
+										<input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}"/>
+										<div class="repImgDiv">
+											<img th:src="${cartItem.imgUrl}" class="rounded repImg" />
+										</div>
+									</td>
+									<td class="column-2">
+										<div>
+											<span th:text="${cartItem.itemNm}"></span>
+											<div>
+												<button type="button" onclick="deleteCartItem(this)"
+												th:data-cartItemid="${cartItem.cartItemId}" class="close">X</button>
+											</div>
+										</div>
+									</td>
+									<td class="column-3">
+										<span th:id="'price'+${cartItem.cartItemId}"
+											  th:data-price="${cartItem.price}"
+											  th:text="${cartItem.price}+'원'">
+										</span>
+									</td>
+									<td class="column-4" >
+											<input style="text-align:center" class="mtext-104 cl3 txt-center num-product" type="number"
+												   onchange="changeCount(this)" name="count" th:value="${cartItem.count}"
+												   min="1" th:id="'count_'+${cartItem.cartItemId}"/>
+									</td>
+									<td class="column-5" >
+										<span style="text-align:center" th:id="'totalPrice_'+${cartItem.cartItemId}"
+											  name="totalPrice" th:text="${cartItem.price*cartItem.count}+'원'">
+										</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+						</div>
+					</div>
+				<div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+					<div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
+						<h4 class="mtext-109 cl2 p-b-30">
+							Cart Totals
+						</h4>
+
+						<div class="flex-w flex-t bor12 p-t-15 p-b-30">
+							<div class="size-208 w-full-ssm">
+								<span class="stext-110 cl2">
+									Shipping :
+								</span>
+							</div>
+
+							<div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+								<p class="stext-111 cl6 p-t-2">
+									성함과 주소를 정확히 입력해 주세요.
+								</p>
+								
+								<div class="p-t-15">
+									<span class="stext-112 cl8">
+										배송 정보 입력
+									</span>
+
+									<div class="bor8 bg0 m-b-12">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="name" placeholder="성함">
+									</div>
+
+									<div class="bor8 bg0 m-b-22">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="telNum" placeholder="전화번호">
+									</div>
+
+									<div class="bor8 bg0 m-b-22">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email" placeholder="이메일">
+									</div>
+								</div>
+							</div>
+
+
+						<div class="flex-w flex-t p-t-27 p-b-33">
+							<div class="size-208">
+								<span class="mtext-101 cl2">
+									Total:
+								</span>
+							</div>
+
+							<div class="size-209 p-t-1">
+								<br/>
+								<span class="mtext-110 cl2 text-danger" id="orderTotalPrice">
+									0원
+								</span>
+							</div>
+						</div>
+
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+								type="button" onclick="order()">
+							결제하기
+						</button>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</form>
+
+	</th:block>
 </th:block>
 <script>
-    $(document).ready(function(){
+	$(document).ready(function(){
         //체크박스 변경이벤트 체크박스가 변경될때 getOrderTotalPrice()호출
         $("input[name=cartChkBox]").change(function(){
             getOrderTotalPrice();

@@ -40,7 +40,7 @@ public class CartController {
 
     //장바구니아이템 수량 수정
     @PostMapping("/cartItem/{cartItemId}")
-    public @ResponseBody ResponseEntity upldateCartItem(
+    public @ResponseBody ResponseEntity updateCartItem(
             @PathVariable("cartItemId") Long cartItemId, @RequestParam("count") int count){
         if(count <= 0){
             return new ResponseEntity<String>("최소 1개 이상 담아주세요"
