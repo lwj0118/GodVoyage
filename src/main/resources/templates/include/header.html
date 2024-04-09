@@ -45,6 +45,9 @@
                                     <a class="nav-link" href="/member/logininfo">마이페이지</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="/cart" >장바구니</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="/logout">로그아웃</a>
                                 </li>
                             </th:block>
@@ -59,7 +62,7 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                       <!-- <th:block th:if="${dto.MemberRole==T(org.godvoyage.godvoyage.constant.MemberRole).USER}">
+                      <!-- <th:block sec:authorize="isAuthenticated()">
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
                                 <i class="zmdi zmdi-shopping-cart">
                                     <a th:href="/cart" th:value="${dto.cartItemId}"></a>
@@ -67,7 +70,7 @@
                             </div>
                         </th:block>
 
-                        <th:block th:unless="${dto.MemberRole==T(org.godvoyage.godvoyage.constant.MemberRole).USER}">
+                        <th:block sec:authorize="isAnonymous()">
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" >
                                 <i class="zmdi zmdi-shopping-cart">
                                     <a th:href="/member/login" ></a>
@@ -75,9 +78,7 @@
                             </div>
                         </th:block>-->
 
-                        <a href="/wishlist" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-                            <i class="zmdi zmdi-favorite-outline"></i>
-                        </a>
+
                     </div>
                 </nav>
             </div>

@@ -1,5 +1,6 @@
 package org.godvoyage.godvoyage.service;
 
+
 import jakarta.mail.internet.MimeMessage;
 
 public interface MailService {
